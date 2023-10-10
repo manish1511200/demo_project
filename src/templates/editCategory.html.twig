@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+     .error {
+            color: red; 
+}
+    </style>
+    <meta charset="utf-8">
+    <title>Edit CATEGORY</title>
+</head>
+<body>
+    <div style="width:1000px;margin: 50px auto;background: #f1f1f1;padding: 50px">
+        <form id="editCategoryFrm" method="POST">
+            <div class="form-group">
+                <h2>
+                    <center> Edit categorymanagement</center>
+                </h2>
+                <h6>Edit Category</h6>
+                {% for categoryId in value %}
+                <div class="form-group">
+                <label for="category" class="form-label">Category :</label>
+               <font color="red">*</font>
+               <input type="text" class="form-control" id="category_name" name="category_name" value="{{categoryId.category_name}}">
+      </div><br>
+                <input class="btn btn-primary" type="submit" name="update" value="update">
+                {% endfor %}
+            </div>
+        </form>
+        <br>
+        <a class="btn btn-primary mb-3" href="category.php">Go Back</a>
+    </div>
+   
+</body>
+</html>
+<script src="../js/editCategoryFrm.js"></script>

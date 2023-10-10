@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>UserMangement page</title>
+    <style>
+      	table,th,tr,
+        td {
+          border: 1px solid red;
+          border-collapse: collapse;
+           }
+</style>
+</head>
+ <body>
+  <div class="container-fluid">
+    <div class="row justify-content-end">
+        <h2 class="text-center" style="color:blue">User-Mangement Page</h2><hr>
+          <h6 class="text-center" style=" color: red">WELCOME--{{first_name}}</h6>
+           <div class="col-md-10">
+           <div id="Users-section" class="container mt-4">
+          <h2 style="color:orange">Users Listing</h2>
+                       {% if user_type == "Admin" %}
+                           <a class="btn btn-primary mb-3" href="create_user.php">Add New User</a>
+                        {% endif %}
+						<table class="table">
+							<thead>
+								<tr>
+									{% if  user_type != "View" %}
+										<th>id:</th>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Email</th>
+										<th>Address</th>
+										<th>Date of Birth</th>
+										<th>User Type</th>
+										<th>Profile Image</th>
+									{% endif %}
+									<th colspan="3">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								     {%  for showWHoleData in value %}
+									<tr></tr>
+									<tr id="delete-row-{{showWHoleData.id}}">
+										<td>{{ showWHoleData.id}}</td>
+										<td>{{showWHoleData.first_name}}</td>
+										<td>{{showWHoleData.last_name}}</td>
+										<td>{{showWHoleData.email}}</td>
+										<td>{{showWHoleData.address}}</td>
+										<td>{{showWHoleData.date_of_birth}}</td>
+										<td>{{showWHoleData.user_type}}</td>
+										<td>
+											<img src="../upload/photo/{{ showWHoleData.image_Path }}" height="50px" width="60px">
+										</td>
+										{% if user_type == "Standard" or user_type == "Admin" %}
+											<td align="center">
+												<a class="btn btn-success" href="editUsers.php?id={{showWHoleData.id }}">Edit</a>
+											</td>
+										{% endif %}
+										{% if user_type == "Admin" %}
+											{% if first_name == showWHoleData.first_name %}
+												<td>
+												</td>
+											{% else %}
+												<td align="center">
+													<a id="delete-btn-{{showWHoleData.id}}" class="btn btn-success" onclick="check_delete({{  showWHoleData.id }})" style="background-color: red;" href="javascript:;">Delete</a>
+												</td>
+											{% endif %}
+										{% endif %}
+										{% if user_type =="Admin" %}
+											<td align="center">
+												<a class="btn btn-primary" href="assignProject.php?id={{showWHoleData.id }}">Assign</a>
+											</td>
+										{% endif %}
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</body>
+	</body>
+</html>
+<script src="../js/deleteUsersData.js"></script>

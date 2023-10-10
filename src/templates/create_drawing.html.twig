@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>create drawings</title>
+		<style>
+			label.error {
+				display: block;
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header>
+			<div class="container-fluid ">
+				<div class="row justify-content-end">
+					<div class="col-md-10">
+						<form id="drawingform" method="POST" enctype="multipart/form-data">
+							<h2 class="text-center" style="color:blue">Create New Drawing
+							</h2>
+							<div class="form-group">
+								<select class="form-control" id="project_id" name="project_id">
+									<option value="" selected>Select Project Id</option>
+									{% for fetchUserId in project %}
+										<option value="{{ fetchUserId.id }}">{{ fetchUserId.project_name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="Drawing_number" class="form-label">Drawing_number :</label>
+								<font color="red">*</font><input type="text" class="form-control" id="Drawing_number" name="drawing_number">
+							</div>
+							<div class="form-group">
+								<label for="Drawing_name" class="form-label">Drawing_name :</label>
+								<font color="red">*</font>
+								<input class="form-control" type="text" id="Drawing_name" name="drawing_name">
+							</div>
+							<div class="form-group">
+								<label for="status">status:</label>
+								<font color="red">*</font>
+								<input type="text" class="form-control" id="status" name="drawing_status">
+							</div><br>
+							<div>
+								<select class="form-control" id="category_name" name="category_name">
+									<option value="" selected>Select category_name</option>
+									{% for category in showCategory %}
+										<option value="{{ category.category_name }}">{{ category.category_name }}</option>
+										{% for subcategory in category.subcategories %}
+											<option value="{{ subcategory.category_name }}">--
+												{{ subcategory.category_name }}</option>
+											{% for nestedSubcategory in subcategory.subcategories %}
+												<option value="{{ nestedSubcategory.category_name }}">****
+													{{ nestedSubcategory.category_name }}</option>
+											{% endfor %}
+										{% endfor %}
+									{% endfor %}
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="pdffile" class="form-label">File:</label>
+								<font color="red">*</font><input type="file" class="form-control" id="pdffile" name="pdffile">
+							</div><br>
+							<input type="submit" class="btn btn-primary" name="submit" value="submit">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html></header></body></html> <script src="../js/inserDrawing.js"></script>

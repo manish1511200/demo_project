@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>category Page</title>
+	</head>
+	<style>
+
+		.error {
+			color: red;
+		}
+	</style>
+	<body>
+		<div style="width: 500px; margin:30px auto; background-color: cyan; padding: 20px">
+			<form id="subcategoryFrm" action="createSubCategory.php?id={{cId}}" method="POST">
+				<h4>
+					<center>
+						ADD SUB CATEGORY
+					</center>
+				</h4>
+				<input type="text" class="form-control" name="subCategory" style="width:100%">
+				<br>
+				<input type="submit" class="btn btn-success" name="submit" value="submit">
+			</form>
+			<br>
+			<a class="btn btn-primary mb-3" href="category.php">Go Back</a>
+		</div>
+
+	</body>
+</html>
+ <script src="../js/subCategory.js"></script>

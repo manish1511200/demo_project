@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>UserMangement page</title>
+<style>
+       table, th,tr,td {
+        	border: 1px solid red;
+            border-collapse: collapse;
+			}
+		</style>
+	</head>
+	<body>
+			<h2 class="text-center" style="color:blue"> Project-Mangement Page</h2>
+			<h6 class="text-center" style=" color: red">WELCOME--{{first_name}}</h6>
+			<header>
+			<div class="container-fluid bg-primary;">
+				<div class="row justify-content-end">
+					<div class="col-md-10">
+						<div id="Project-section" class="container mt-4">
+							<h2 style="color:orange">Project Listing</h2>
+							{% if user_type == "Standard" or user_type == "Admin" %}
+								<a class="btn btn-primary mb-3" href="create_project.php">Add New Project</a>
+							{% endif %}
+							<table class="table">
+								<thead>
+									<tr>
+										{% if user_type != "View" %}
+											<th>id:</th>
+											<th>Project Name</th>
+											<th>Project Number</th>
+											<th>Address</th>
+											<th>Start Date</th>
+											<th>End Date</th>
+											<th>Image</th>
+										{% endif %}
+										<th colspan="3">
+											Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for showWHoleProjectData in value %}
+										<tr id="delete-row-{{showWHoleProjectData.id}}">
+											<td>{{showWHoleProjectData.id}}</td>
+											<td>{{showWHoleProjectData.project_name}}</td>
+											<td>{{showWHoleProjectData.project_number}}</td>
+											<td>{{showWHoleProjectData.address}}</td>
+											<td>{{showWHoleProjectData.start_date}}</td>
+											<td>{{showWHoleProjectData.end_date}}</td>
+											<td>
+												<img src="../upload/photo/{{ showWHoleProjectData.image }}" height="50px" width="60px">
+											</td>
+											{% if user_type == "Standard" or user_type == "Admin" %}
+												<td align="center">
+													<a class="btn btn-success" href="editProject.php?id= {{ showWHoleProjectData.id}}">Edit</a>
+												</td>
+											{% endif %}
+											{% if user_type == "Admin" %}
+												<td align="center">
+													<a id="delete-btn-{{ showWHoleProjectData.id }}" class="btn btn-success" onclick="check_delete({{showWHoleProjectData.id }})" style="background-color: red;" href="javascript:;">Delete</a>
+												</td>
+											{% endif %}
+										</tr>
+
+									{%  endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html></header></body></html> <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+ <script>
+			   
+		// delete function
+function check_delete(id) {
+    $.ajax({
+        url: "delete.php",
+        type: "GET",
+        data: {
+            id: id,
+        },
+        success: function(response) {
+            if (response == 1) {
+                alert("Delete data successfully");
+                $("#delete-row-" + id).remove(); 
+            } else {
+                alert("Data cannot be deleted");
+            }
+        }
+    });
+}	</script>

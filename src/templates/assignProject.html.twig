@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>Assign page</title>
+        <style>
+            table,
+            th,
+            tr,
+            td { 
+            border: 1px solid red;
+            border-collapse: collapse;
+            }
+        </style>
+    </head>
+ <body>
+       <div style="width: 500px; margin:30px auto; background-color: cyan; padding: 20px">
+         <div class="container-fluid ">
+           <div class="row justify-content-end">
+             <div class="col-md-12">
+                 <h2 class="text-center" style="color:red">ASSIGN PROJECT</h2>
+                      <form action="assignProject.php?id={{userId}}" method="POST">
+                            <div>
+                              <table class="table">
+                                <tr>
+                                 <th scope="col">Project name</th>
+                                 <th scope="col">Assign</th>
+                                </tr>
+                                  <tbody>
+
+                                  {% for projectName in project %}
+                                   <tr>
+                                     <td>{{ projectName.project_name }}</td>
+                                     <td><input type="checkbox" name="checkbox[]" value="{{projectName.id }}"
+                                      {% if projectName.id in assign %} checked {% else %} {{projectName.id}} {{ assign }} not {% endif %}>
+                                      </td>
+                                     </tr>
+                                    {% endfor %}
+                                     </tbody>
+                                 </table>
+                                <input type="hidden" name="user_id" value="{{userId}}">
+                            </div>
+                            <div>
+                              <input type="submit" class="btn btn-primary" name="save" value="Save">
+                                <br>
+                       <a href="userMangement.php" class="btn btn-success" style="background-color: green;">Back</a>
+                        </div>
+                 </form>
+              </div>
+            </div>
+          </div>
+     </body>
+  </body>
+</html>

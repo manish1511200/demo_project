@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawings page</title>
+    {# This is pdf icon cdn    #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        table, th, tr, td {
+            border: 1px solid red;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+        <h2 class="text-center" style="color:blue"> Drawing Page</h2>
+        <h6 class="text-center" style=" color: red">WELCOME--{{first_name}}</h6>
+    <div class="container-fluid">
+        <div class="row justify-content-end">
+            <div class="col-md-10">
+                <div id="drawings-section" class="container mt-4">
+                    <h2  style="color:orange">Drawings Listing</h2>
+            
+                    {% if user_type == "Standard" or user_type == "Admin" %}
+                        <a class="btn btn-primary mb-3" href="create_drawing.php">Add New Drawing</a>
+                    {% endif %}
+                     <br>
+                     {% if user_type == "Admin"%}
+                      <a class="btn btn-primary mb-3" href="category.php">Add Category</a>
+                      <br>
+                      {% endif %}
+                      
+                    {% if user_type == "Standard" or user_type == "Admin" or user_type == 'View' %}
+                            Select Project: 
+                            <select id="select-project" onchange="projectId()" name="project_name">
+                                {# <option selected>Select project</option> #}
+                               {% for viewAssignPbyUsers in project %}
+                                    <option value="{{viewAssignPbyUsers.id}}">{{ viewAssignPbyUsers.project_name }}</option>
+                                {% endfor %}
+                            </select>
+                       {% endif %}
+                       
+<div id="drawingPage"> 
+                    <table class="table">
+                        <thead>
+                        
+                               <tr>
+                                    <th>Id:</th>
+                                    <th>Project_Name</th>
+                                    <th>Drawing No</th>
+                                    <th>Drawing Name</th>
+                                    <th>Status</th>
+                                    <th>Category</th>
+                                    <th>File</th>
+                                
+                                <th colspan="2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for viewDrawingByProjectName in value %}
+                                <tr id="delete-row-{{viewDrawingByProjectName.id}}">
+                                    <td>{{ viewDrawingByProjectName.id }}</td>
+                                    <td>{{ viewDrawingByProjectName.project_name }}</td>
+                                    <td>{{ viewDrawingByProjectName.drawing_number }}</td>
+                                    <td>{{ viewDrawingByProjectName.drawing_name }}</td>
+                                    <td>{{ viewDrawingByProjectName.drawing_status }}</td>
+                                    <td>{{ viewDrawingByProjectName.category }}</td>
+                                    <td>
+                                        <a href="../upload/document/{{ viewDrawingByProjectName.pdf_file }}">
+                                            <i class="fa fa-file-pdf-o" style="font-size:20px;color:red"></i>
+                                        </a>
+                                    </td>
+                                    {% if user_type == "Standard" or user_type == "Admin" %}
+                                        <td align="center">
+                                            <a class="btn btn-success" href="editDrawings.php?id={{ viewDrawingByProjectName.id }}">Edit</a>
+                                        </td>
+                                    {% endif %}
+                                    
+                                    {% if user_type == "Admin" %}
+                                        <td align="center">
+                                            <a id="delete-btn-{{ viewDrawingByProjectName.id }}" class="btn btn-success" onclick="check_delete({{ viewDrawingByProjectName.id }})" style="background-color: red;" href="javascript:;">Delete</a>
+                                         </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+</body>
+</html>
+ 
+<script src="../js/showDrwaingWithAjax.js"></script>
+
+ 

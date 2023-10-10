@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/ .bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {# Data table plugin cdn #}
+    <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"></script>
+ {# Jquery cdn for validation #}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+
+    <style>
+        .nav-link.active{
+            background-color:blue;
+            color: black;
+        
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-end">
+            <div class="col-md-2" style="position: fixed; z-index: 1; top: 0; left: 0; background-color: #ffffff; height: 100%;">
+                <nav class="nav flex-column">
+                <a class="nav-link" id="overview-link" href="overview.php">Overview Page</a>
+                <a class="nav-link" id="usermanagement-link" href="usermangement.php">User Management</a>
+                <a class="nav-link" id="projectmanagement-link" href="projectMangement.php">Project Management</a>
+                {% if user_type != "None" %}
+                <a class="nav-link" id="drawings-link" href="drawing.php">Drawings</a>
+                {% endif %}
+                    <a class="nav-link" href="logout.php">Logout</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    $(document).ready(function () {
+        // Get the current page URL
+        var currentUrl = window.location.href;
+
+        // Check if the URL contains "overview.php" and add the "active" class accordingly
+        if (currentUrl.includes("overview.php")) {
+            $("#overview-link").addClass("active");
+        }
+        if (currentUrl.includes("usermangement.php") || currentUrl.includes("create_user.php") 
+        || currentUrl.includes("editUsers.php") || currentUrl.includes("assignProject.php")) {
+            $("#usermanagement-link").addClass("active");
+        }
+        if (currentUrl.includes("projectMangement.php") || currentUrl.includes("create_project.php") ||
+         currentUrl.includes("editProject.php")) {
+            $("#projectmanagement-link").addClass("active");
+        }
+        if (currentUrl.includes("drawing.php") || currentUrl.includes("create_drawing.php") ||
+         currentUrl.includes("editDrawings.php") ||  currentUrl.includes("category.php") ||  currentUrl.includes("editCategory.php") 
+         || currentUrl.includes("createSubCategory.php") || currentUrl.includes("viewSubCategory.php")|| 
+          currentUrl.includes("drawingPageWithAjax.php") ) {
+            $("#drawings-link").addClass("active");
+        }
+        
+    });
+</script>

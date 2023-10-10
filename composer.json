@@ -1,0 +1,20 @@
+{
+    "name": "project/dummy",
+    "description": "This is my first project",
+    
+    "authors": [
+        {
+            "name": "manish_singh"
+        }
+    ],
+    "autoload":{
+        "psr-4": {
+            "project\\dummy\\":"src/",
+            "dummy\\":"classes/"
+        }
+    },
+    "require": {
+        "twig/twig": "3.0"
+    }
+}
+  

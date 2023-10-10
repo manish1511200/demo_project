@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overview Page</title>
+</head>
+<body>
+    <h2 class="text-center" style="color: blue">Overview Page</h2>
+    <header>
+        <div style="width: 600px" class="card-body mx-auto">
+            <canvas id="graphCanvas"></canvas>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script>
+        <script>
+            var projects = {{ projectNames|json_encode|raw }};
+            var userCounts = {{ userCounts|json_encode|raw }};
+            var drawingCounts = {{drawingCounts|json_encode|raw}};
+
+            var userCountsData = userCounts.map(entry => entry.user_count);
+            var drawingCountsData = drawingCounts.map(entry => entry.drawing_count);
+
+            // Create a bar chart using Chart.js
+            const ctx = document.getElementById('graphCanvas').getContext('2d');
+            new Chart(ctx, { 
+                type: 'bar',
+                data: {
+                    labels: projects, // Use project Names as Xaxis
+                    datasets: [{
+                        label: 'Users per Project',
+                        data: userCountsData, // Use user counts for y-axis
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'intYAxis' // integervalue for the yAxis for this dataset
+                    },
+                    {
+                        label: 'Drawings per Project',
+                        data: drawingCountsData, // Use drawing counts for y-axis
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        yAxisID: 'intYAxis' 
+                    }
+                    ]
+                },
+            options: {
+        scales: {
+            intYAxis: {
+                type: 'linear',
+                position: 'left',
+                ticks: {
+                    callback: function(value) {
+                        return Number.isInteger(value) ? value : ''; // Display integers only
+                    }
+                }
+            }
+        }
+    }
+});
+        </script>
+    </header>
+</body>
+</html>
+
